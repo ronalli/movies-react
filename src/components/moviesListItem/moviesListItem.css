@@ -1,0 +1,12 @@
+.card {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-around;
+	max-width: 250px;
+	margin: 15px;
+}
+
+.info-movie {
+	display: flex;
+	justify-content: space-between;
+}

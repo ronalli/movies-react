@@ -1,7 +1,9 @@
+import { MoviesList } from "../components/moviesList/MoviesList";
+
 const Main = () => {
   return (
     <main>
-      <h4>Hello React Movies</h4>
+      <MoviesList />
     </main>
   );
 };
