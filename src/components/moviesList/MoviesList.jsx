@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import { MoviesListItem } from "../moviesListItem/MoviesListItem";
+import { Preloader } from "../Preloader/Preloader";
+import { Search } from "../Search/Search";
 
 import "./moviesList.css";
 
@@ -17,18 +19,25 @@ const MoviesList = () => {
     setMoviesList(movies);
   };
 
+  const searchMovie = (movie) => {
+    fetch(`http://www.omdbapi.com/?apikey=${API_KEY}&s=${movie}`)
+      .then((response) => response.json())
+      .then((data) => saveMovies(data.Search));
+  };
+
   return (
     <>
+      <Search searchMovie={searchMovie} />
       <h4>Movies</h4>
-      <div className="wrapper">
-        {!moviesList ? (
-          <h5>Loading...</h5>
-        ) : (
-          moviesList.map(({ imdbID, ...props }) => {
+      {!moviesList.length ? (
+        <Preloader />
+      ) : (
+        <div className="wrapper">
+          {moviesList.map(({ imdbID, ...props }) => {
             return <MoviesListItem key={imdbID} {...props} />;
-          })
-        )}
-      </div>
+          })}
+        </div>
+      )}
     </>
   );
 };
