@@ -8,13 +8,17 @@ import './moviesList.css';
 
 const MoviesList = () => {
   const API_KEY = 'df7bf955';
+  const [loading, setLoading] = useState(true);
   const [moviesList, setMoviesList] = useState([]);
   const [activeFilter, setActiveFilter] = useState('all');
 
   useEffect(() => {
     fetch(`http://www.omdbapi.com/?apikey=${API_KEY}&s=matrix`)
       .then((response) => response.json())
-      .then((data) => saveMovies(data.Search));
+      .then((data) => {
+        saveMovies(data.Search);
+        setLoading(false);
+      });
   }, []);
 
   const saveMovies = (movies) => {
@@ -28,7 +32,10 @@ const MoviesList = () => {
       }`
     )
       .then((response) => response.json())
-      .then((data) => saveMovies(data.Search));
+      .then((data) => {
+        saveMovies(data.Search);
+        setLoading(false);
+      });
   };
 
   return (
@@ -38,13 +45,18 @@ const MoviesList = () => {
         activeFilter={activeFilter}
         setActiveFilter={setActiveFilter}
       />
-      {!moviesList.length || moviesList === undefined ? (
+
+      {loading ? (
         <Preloader />
       ) : (
         <div className='wrapper'>
-          {moviesList.map(({ imdbID, ...props }) => {
-            return <MoviesListItem key={imdbID} {...props} />;
-          })}
+          {moviesList === undefined ? (
+            <h4>Nothing found</h4>
+          ) : (
+            moviesList.map(({ imdbID, ...props }) => {
+              return <MoviesListItem key={imdbID} {...props} />;
+            })
+          )}
         </div>
       )}
     </>
