@@ -1,5 +1,5 @@
-import { useEffect } from "react";
-import "./sortMovies.css";
+import { useEffect } from 'react';
+import './sortMovies.css';
 
 const SortMovies = ({ activeFilter, setActiveFilter }) => {
   let allRadio = null;
@@ -7,25 +7,25 @@ const SortMovies = ({ activeFilter, setActiveFilter }) => {
     allRadio = document.querySelectorAll('input[name="group1"]');
     allRadio.forEach((el) => {
       if (el.dataset.filter === activeFilter) {
-        el.setAttribute("checked", true);
+        el.setAttribute('checked', true);
       } else {
-        el.removeAttribute("checked");
+        el.removeAttribute('checked');
       }
     });
   }, [activeFilter]);
 
   return (
     <div
-      className="buttons-sort"
+      className='buttons-sort'
       onChange={(e) => setActiveFilter(e.target.dataset.filter)}
     >
       <p>
         <label>
           <input
-            className="with-gap"
-            data-filter="all"
-            name="group1"
-            type="radio"
+            className='with-gap'
+            data-filter='all'
+            name='group1'
+            type='radio'
           />
           <span>All</span>
         </label>
@@ -33,10 +33,10 @@ const SortMovies = ({ activeFilter, setActiveFilter }) => {
       <p>
         <label>
           <input
-            className="with-gap"
-            data-filter="movie"
-            name="group1"
-            type="radio"
+            className='with-gap'
+            data-filter='movie'
+            name='group1'
+            type='radio'
           />
           <span>Movies only</span>
         </label>
@@ -44,10 +44,10 @@ const SortMovies = ({ activeFilter, setActiveFilter }) => {
       <p>
         <label>
           <input
-            className="with-gap"
-            data-filter="series"
-            name="group1"
-            type="radio"
+            className='with-gap'
+            data-filter='series'
+            name='group1'
+            type='radio'
           />
           <span>Series only</span>
         </label>
